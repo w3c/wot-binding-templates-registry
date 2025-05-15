@@ -1,4 +1,4 @@
-# DRAFT - Binding Registry Requirements
+# DRAFT - Bindings Registry Requirements
 
 Until the editor's draft is ready, this document will contain the requirements for the binding registry.
 Please see <https://github.com/w3c/wot/blob/main/registry-analysis/Readme.md> to see the analysis of the registry mechanism.
@@ -19,8 +19,24 @@ It is unrealistic to incorporate a complete list of bindings into a REC document
 
 ## Terminology
 
-- <a name="def-dependency">Dependency</a>: An entry that is used or referenced to from another entry
-- <a name="def-dependent">Dependent</a>: An entry that uses or references another entry
+The terms below sometimes use the word **X** as a placeholder for the concrete binding that is referred to.
+
+- <a name="def-binding">WoT X Binding</a>: A human-readable document that gives guidance on how to describe a specific IoT protocol, data format or IoT platform in the context of WoT. This is also the registry entry. See <https://www.w3.org/policies/process/#registry-entry> for more information on the registry entry.
+- <a name="def-binding-instance">Binding Instance</a>: A form element in a TD or TM that contains the concrete mapping of the operation to a binding. Thus it is a machine-readable description of how to activate an affordance.
+- <a name="def-bindings-registry">WoT Bindings Registry</a>: A W3C Registry Track document that contains the WoT Bindings Registry Table, its requirements and possibly other information. See <https://www.w3.org/policies/process/#registry> for more information on the definition of a registry.
+- <a name="def-bindings-registry-table">WoT Bindings Registry Table</a>: A list of bindings that are usable in the context of WoT. See <https://www.w3.org/policies/process/#registry-table> for more information on the registry table.
+- <a name="def-bindings-registry-definition">WoT Bindings Registry Definition</a>: A set of requirements that explain how the registry table is structured and maintained. See <https://www.w3.org/policies/process/#registry-definition> for more information on registry definition.
+- <a name="def-binding-implementation">WoT X Binding Implementation</a>: One of the codebases that implements the X binding to build the correct network messages.
+- <a name="def-binding-execution">Execution of a Binding Instance</a>: The request on the wire that is sent after parsing a TD's binding instance.
+- <a name="def-supporting-summary">WoT X Binding Summary</a>: A custodian-owned document that summarizes the binding with an abstract, examples, access/usage rights and possibly more. This is a supporting document for a binding entry.
+- <a name="def-supporting-json-schema">WoT X Binding JSON Schema</a>: A JSON Schema that allows validating the elements added by the WoT X Binding (registry entry). This is a supporting document for a binding entry.
+- <a name="def-supporting-jsonld-context">WoT X Binding JSON-LD Context</a>: A machine-readable JSON-LD document that defines all the terms to be used in a binding instance, which allows the terms to be dereferenced correctly by a JSON-LD parser. This is a supporting document for a binding entry.
+- <a name="def-supporting-vocab-rdf">X Vocabulary in RDF</a>: A machine-readable RDF document that formally defines all the terms of the binding, which allow semantic processing of a TD using those terms. The scope of these documents is not limited to WoT. This is a supporting document for a binding entry.
+- <a name="def-supporting-vocab-human">X Vocabulary Document</a>: A human-readable version of the vocabulary defined at [X Vocabulary in RDF](#def-supporting-vocab-rdf). This is a supporting document for a binding entry.
+- <a name="def-custodian">Custodian</a>: See <https://www.w3.org/policies/process/#custodian>.
+- <a name="def-reviewer">Reviewer</a>: A person who is an expert in the specification that the binding is targeting. 
+- <a name="def-dependency">Dependency</a>: An entry that is used or referenced to from another entry.
+- <a name="def-dependent">Dependent</a>: An entry that uses or references another entry.
 
 ## Intro Section of the Document
 
@@ -47,7 +63,7 @@ A preliminary list of rules that is extending https://www.w3.org/2023/Process-20
 Each entry MUST contain this information, and all parts of the entry MUST not conflict with existing bindings.
 
 - <a name="form-name">Form-Name</a>: Name of the binding
-  - Examples: `HTTP Binding Template`, `CoAP Binding Template`
+  - Examples: `HTTP Binding`, `CoAP Binding`
 - <a name="form-link">Form-Link</a>: Link to the binding document: Stable link whose content cannot change (e.g., a date, version number, etc.)
   - Examples: `https://www.w3.org/TR/wot/binding-templates/http-20240726/index.html`
 - <a name="form-pref">Form-Pref</a>: Binding ontology prefix
@@ -108,7 +124,6 @@ What does the binding have to contain to go into the table
 - <a name="req-docsec">Req-DocSec</a>: The WoT binding MAY be just one section of the document. In that case, the "Link to the binding document" in the registry entry MUST point to the specific location. PDF or similar document types MAY be submitted if the "Link to the binding document" in the registry entry contains a text pointing to the section. However, HTML and Webpages SHOULD be favoured.
 - <a name="req-copy">Req-Copy</a>: The WoT binding document DOES NOT have to follow the W3C copyright. The submitter is free to choose based on the process they or their organization follows.
 - <a name="req-openread">Req-OpenRead</a>: The binding document linked in the registry entry SHOULD be open to read, use, and implement, but that is not required for the document be added to the registry.
-  - See also https://github.com/w3c/wot-binding-templates/issues/393
 - <a name="req-openrev">Req-OpenRev</a>: Reviewer MUST have access to the binding document and to the protocol or media type specification (what the binding specifies)
 - <a name="req-summ">Req-Summ</a>: The submitter MUST fill the GitHub form provided by the custodian to generate the summary document, which is hosted by the custodian together with the registry. This form contains the following:
   - Abstract - It MUST contain an abstract with the following information:
@@ -137,11 +152,11 @@ What does the binding have to contain to go into the table
       - MUST explain where discussions on implementation experience should be collected
       - SHOULD provide the history of all the past testing events (or explain how to retrieve the history of the results gathered during those events)
       - SHOULD contain a reference to the implementations of Consumers or Exposers. 
-  - For the binding to transition to the "Current" state, a *Test Report* MUST exist. The *Test Report* MUST contain at least one implementation of a Consumer (capable of understanding and performing all the operations described in the binding) and one Exposer (capable of handling all the operations and features described in the binding and optionally be able to create a valid TD). Additional implementations can be added even after the transition to the Current
+  - For the binding to transition to the "Current" state, a *Test Report* MUST exist. The *Test Report* MUST contain at least one implementation of a Consumer (capable of understanding and performing all the operations described in the binding) and one Exposer (capable of handling all the operations and features described in the binding and optionally be able to create a valid TD). Additional implementations can be added even after the transition to the Current.
+  - The exact contents of the Test Report is not decided yet. See <https://github.com/w3c/wot-binding-templates-registry/issues/3>
   - Submitters MAY call for transition but the custodian can also automatically trigger the process once it is verified that the condition above is reached.
   - *Test Reports* and related resources SHOULD be published in a git repository. The repository SHOULD be public and it MUST be accessible to the reviewers and the custodian.  
   - Collaboration between the custodian, reviewers, and submitters is highly encouraged, ideally through a Plugfest or another structured testing session where different implementations can be evaluated collectively.
-  - See https://github.com/w3c/wot-binding-templates/issues/403
 - <a name="req-content">Req-Content</a>: The binding MUST contain the following sections in the order presented below. The binding CAN contain other sections anywhere, including between the required ones. The submitters are encouraged to look at the existing submissions. There MUST be at least one operation mapped to a protocol message/vocabulary term. The submitter SHOULD use the table template provided in the document for the vocabulary.
   - Introduction
   - Binding Content:
