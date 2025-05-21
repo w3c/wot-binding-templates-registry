@@ -2,6 +2,6 @@
   "group": 95969,
   "contacts": ["ashimura"],
   "policy": "open",
-  "shortName": "wot-binding-templates-registry",
+  "shortName": "wot-bindings-registry",
   "repo-type": ["registry"]
 }

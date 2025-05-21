@@ -152,7 +152,7 @@ What does the binding have to contain to go into the table
     - SHOULD provide the history of all the past testing events (or explain how to retrieve the history of the results gathered during those events)
     - SHOULD contain a reference to the implementations of Consumers or Exposers.
   - For the binding to transition to the "Current" state, a _Test Report_ MUST exist. The _Test Report_ MUST contain at least one implementation of a Consumer (capable of understanding and performing all the operations described in the binding) and one Exposer (capable of handling all the operations and features described in the binding and optionally be able to create a valid TD). Additional implementations can be added even after the transition to the Current.
-  - The exact contents of the Test Report is not decided yet. See <https://github.com/w3c/wot-binding-templates-registry/issues/3>
+  - The exact contents of the Test Report is not decided yet. See <https://github.com/w3c/wot-bindings-registry/issues/3>
   - Submitters MAY call for transition but the custodian can also automatically trigger the process once it is verified that the condition above is reached.
   - _Test Reports_ and related resources SHOULD be published in a git repository. The repository SHOULD be public and it MUST be accessible to the reviewers and the custodian.
   - Collaboration between the custodian, reviewers, and submitters is highly encouraged, ideally through a Plugfest or another structured testing session where different implementations can be evaluated collectively.
